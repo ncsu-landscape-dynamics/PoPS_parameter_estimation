@@ -1,0 +1,3 @@
+[submodule "rpops"]
+	path = rpops
+	url = https://github.com/ncsu-landscape-dynamics/rpops
