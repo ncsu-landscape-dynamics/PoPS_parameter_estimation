@@ -3,7 +3,7 @@ library(raster)
 library(caret)
 library(diffeR)
 
-quantity_allocation_disagreement<- function(reference, comparison, parameters=NULL){
+disagreement<- function(reference, comparison, parameters=NULL){
   counter = 0
   testing <- data.frame(row = rep(0, ncell(reference)), column = 0, reference = 0, prediction = 0)
   for (i in 1:nrow(reference)){
