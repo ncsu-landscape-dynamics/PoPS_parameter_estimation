@@ -31,7 +31,10 @@ weather = FALSE
 if (use_lethal_temperature == TRUE) {
   temperature_stack = stack(temperature_file)
   temperature_stack[is.na(temperature_stack)] <- 0
+} else {
+  temperature = NULL
 }
+
 if (temp == TRUE) {
   temperature_coefficient = stack(temperature_coefficient_file)
   weather = TRUE
@@ -44,6 +47,9 @@ if (temp == TRUE) {
   precipitation_coefficient = stack(precipitation_coefficient_file)
   weather = TRUE
   weather_coefficient_stack = precipitation_coefficient
+} else if (precip == FALSE && temp == FALSE) {
+  weather = FALSE
+  weather_coefficient = NULL
 }
 
 season_month_start = 6
@@ -58,7 +64,7 @@ if (use_lethal_temperature == TRUE) {
   for(i in 2:number_of_years) {
     temperature[[i]] <- as.matrix(temperature_stack[[i]])
   }
-}
+} 
 
 if (time_step == "week") {
   number_of_time_steps = (end_time-start_time+1)*52 +1
@@ -214,12 +220,12 @@ data <- pops_model(random_seed = random_seed,
        return(params)
        }
        
-       num_iterations = 1000
+       num_iterations = 100
        start_reproductive_rate = 3.0
-       start_short_distance_scale = 40
+       start_short_distance_scale = 50
        start_random_seed = 1
-       sd_reproductive_rate = 0.4
-       sd_short_distance_scale = 4
+       sd_reproductive_rate = 0.3
+       sd_short_distance_scale = 3
        
        params <- MCMC(num_iterations, start_reproductive_rate, start_short_distance_scale, start_random_seed, sd_reproductive_rate, sd_short_distance_scale)
        
